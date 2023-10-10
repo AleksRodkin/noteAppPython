@@ -7,7 +7,7 @@ path = '/Users/aleksr/PycharmProjects/notesApp/main/notes/'
 def open_note(note_id: int, notes: dict[int, str]):
     with open('notes/' + dict.get(notes, note_id), 'r') as fh:
         file_content = fh.read()
-        print('\n' + json.loads(file_content))
+        print('\n' + json.loads(file_content) + '\n')
 
 
 def add_note():
@@ -16,9 +16,6 @@ def add_note():
 
     with open('notes/' + name + '.json', 'w') as f:
         f.write(json.dumps(text, ensure_ascii=False, indent=4))
-
-    # with open('test_json_file') as f:
-    #     print(f.read())
 
 
 def get_notes_dict():
@@ -43,9 +40,15 @@ def search(word, notes: dict[int, str]):
     return result
 
 
-def change_note():
-    with open('notes/test_json_file.json') as f:
+def change_note(note_id: int, notes: dict[int, str]):
+    with open('notes/' + dict.get(notes, note_id)) as f:
         data = json.load(f)
-    data = 'замена1'
-    with open('notes/test_json_file.json', 'w') as f:
+    data = input("Введите новый текст заметки: ")
+    with open('notes/' + dict.get(notes, note_id), 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
+
+
+def delete_note(note_id: id):
+    name = get_notes_dict().pop(note_id)
+    os.remove('/Users/aleksr/PycharmProjects/notesApp/main/notes/' + name)
+    return name

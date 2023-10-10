@@ -19,14 +19,32 @@ def start():
                 show_dict = model.get_notes_dict()
                 view.show_notes(show_dict, text.empty_folder)
             case 2:
-                if search_note():
-                    note_id = view.input_number(text.input_open_file)
-                    model.open_note(note_id, model.get_notes_dict())
+                if model.get_notes_dict() == {}:
+                    view.print_msg(text.empty_folder)
+                else:
+                    search_dict = search_note()
+                    if search_dict:
+                        note_id = view.input_number(text.input_open_file, search_dict)
+                        model.open_note(note_id, model.get_notes_dict())
             case 3:
                 model.add_note()
             case 4:
-                pass
+                if model.get_notes_dict() == {}:
+                    view.print_msg(text.empty_folder)
+                else:
+                    search_dict = search_note()
+                    if search_dict:
+                        note_id = view.input_number(text.input_change_file, search_dict)
+                        model.change_note(note_id, model.get_notes_dict())
+                        view.print_msg(text.change_success)
             case 5:
-                pass
+                if model.get_notes_dict() == {}:
+                    view.print_msg(text.empty_folder)
+                else:
+                    search_dict = search_note()
+                    if search_dict:
+                        note_id = view.input_number(text.input_delete_file, search_dict)
+                        name = model.delete_note(note_id)
+                        view.print_msg(text.note_deleted(name))
             case 6:
                 break

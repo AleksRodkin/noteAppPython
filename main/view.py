@@ -28,10 +28,11 @@ def input_data(msg: str) -> str:
     return input(msg)
 
 
-def input_number(msg: str) -> int:
+def input_number(msg: int, result: dict[int, str]) -> int:
+    check_list = list(result.keys())
     while True:
-        number = input(msg)
-        if number.isdigit():
+        number = int(input(msg))
+        if 0 < number <= len(check_list):
             return int(number)
 
 
